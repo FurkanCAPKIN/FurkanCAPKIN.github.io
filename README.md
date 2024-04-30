@@ -1,9 +1,10 @@
 <div align=center>
-MAKAS ATMA OYUNU:
+MAKAS ATMA OYUNU
 </div>
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" />
 
 Oyun Kuralları: Oyunun kuralları gayet basittir diğer arabalara temas etmediğin müddetçe sürüşe devam edebilirsin.
+Temas olursa oyun biter ve yukarıda skorun gözükür.
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" />
 
