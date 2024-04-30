@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Makas Atma Oyunu</title>
+    <style>
+      /* Furkan Çapkın 21360859061 */
+      body {
+        background-color: #152514; 
+        /* Arka plan rengini koyu yeşil olarak ayarlar. */
+      }
+      h1 {
+        text-align: center;
+        /* Yazıyı ortalar. */
+        color: #ffffff;
+        /* Yazının rengini beyaz yapar. */
+        font-size: 3em;
+        /* Yazının boyutunu beliler. */
+      }
+    
+      .hide {
+        display: none;
+        /* Ögeleri görünmez hale getirir. */ 
+      }
+      .araba,
+      .arac {
+        position: absolute;
+        /* Nesnelerin konumlarını kesin olarak ayarlar. */
+        bottom: 100px;
+        /* Alt kenardan 100 pixel yukarıya konumlandırır. */
+        margin: auto;
+        /* Yatayda merkezler. */
+        width: 60px;
+        height: 120px;
+        /* Width ve Height ile boyutları belirlenir. */
+        background-image: url(car.png);
+        /* Araç resimleri aktarılır. */
+        background-size: cover;
+        /* Arka planın nesne ile uyumlu olması sağlanır. */
+      }
+      .arac1 { /* Bu blokta kodların açıklamasını bir üst blokta yaptım. */
+        position: absolute;
+        bottom: 100px;
+        margin: auto;
+        width: 55px;
+        height: 120px;
+        background-image: url(car1.png);
+        background-size: cover;
+      }
+      .OyunAlani {
+        background-color: black;
+        width: 400px;
+        height: 100%;
+        overflow: hidden;
+        /* İçeriğin sadece sınırlar içinde kalan kısmının görüntülenmesini sağlar. */
+        position: absolute;
+        margin: auto;
+        left: 35%;
+        /* Yatay pozisyonunu belirtir. */
+      }
+      .Serit1 {
+        position: absolute;
+        height: 100px;
+        width: 10px;
+        margin-left: 130px;
+        /* Şeridin konumunu sola 130 pixel olacak şekilde belirler. */
+        background-color: white;
+      }
+      .Serit2 {
+        position: absolute;
+        height: 100px;
+        width: 10px;
+        margin-left: 260px;
+        /* Şeridin konumunu sola 260 pixel olacak şekilde belirler. */
+        background-color: white;
+      }
+      .score {
+        background-color: #851a00;
+        height: 70px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 1em;
+        /* Metnin boyutunu belirler. */
+        font-family: fantasy;
+        /* Metnin yazı tipini belirler. */
+      }
+      .BaslamaEkrani { 
+        text-align: center;
+        border: 5px solid #1f2ecc;
+        /* Kenarların kalınlığını, stilini ve rengini belirler. */
+        padding: 15px;
+        margin: auto;
+        width: 300px;
+      }
+      .BilgiEkrani { 
+        position: absolute;
+        left: 1px;
+        top: 102px; 
+        /* Üst tarafta uzaklığını belirler. */
+        text-align: center;
+        
+        font-size: 10px;
+        margin: auto;
+        height: 740px;
+        width: 515px;
+      }
+      .BaslamaButonu {
+            background-color: #1bb820;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            /*  Metin üzerindeki tüm dekorasyonları kaldırır. */
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        /* Butonun üstüne geldiğimizde çalışır ve rengini koyulaştırır. */
+        .BaslamaButonu:hover {
+            background-color: #066a0b;
+        }
+        /* Furkan Çapkın 21360859061 */
+    </style>
+  </head>
+  <body>
+    <div class="ana-konteyner">
+      <!-- Arka plan resmi ve üstüne gelecek resimler burada olacak. -->
+    </div>
+  
+    <div class="score">
+      <h1>Hoşgeldin, iyi oyunlar.</h1>
+      <!-- Sayfa açıldığı zaman üst kısımda görünecek olan yazı. -->  
+    </div>
+    <div class="game">
+      <div class="BaslamaEkrani">
+        <button class="BaslamaButonu">Start</button>
+      </div>
+      <div class="OyunAlani"></div>
+    </div>
+
+    <div class="BilgiEkrani">
+      <h1>
+        <u>Oyun Kuralları :</u><br><br>
+        Oyunun kuralları gerçek hayattaki gibidir arabalara temas etmediğin sürece sürmeye devam edebilirsin.<br>
+        Makas atarken arabayla temas olursa kaza yapmış olursun ve oyun biter.<br><br>
+        <u>Oyun Oynanışı :</u><br><br>
+        Oynanış gayet basittir<br>
+        Sağ tuşu ile sağa,<br>
+        Sol tuşu ile sola,<br>
+        Hızlanmak için ileri tuşu,<br>
+        Yavaşlamak için de geri tuşunu,<br> 
+        kullanabilirsiniz.
+        <!-- Oyunun kuralları ve oynanışı hakkındaki temel bilgiler bu kısımda yazıldı. -->
+      </h1>
+    </div>
+
+    <script>
+      const score = document.querySelector(".score");
+      //Oyun sırasında puanı göstermek için kullanılır.
+      const BaslamaEkrani = document.querySelector(".BaslamaEkrani");
+      //Oyun başlangıç ekranını temsil eder.
+      const BilgiEkrani = document.querySelector(".BilgiEkrani");
+      //Oyun bilgi ekranını temsil eder.çç
+      const OyunAlani = document.querySelector(".OyunAlani");
+      //Oyunun oynandığı alanı temsil eder.
+      let oyuncu = { speed: 7, score: 0 };
+      //Oyuncunun hızı ve skorunu içerir.
+      let keys = { //yön tuşlarını içerir
+        //hepsini false yapar çünkü başta basılı olmadığını belirtir.
+        ArrowUp: false,
+        ArrowDown: false,
+        ArrowRight: false,
+        ArrowLeft: false,
+      };
+      BaslamaEkrani.addEventListener("click", start);
+      //Start ekranına tıklandığında start isimli fonksiyonu çağırır.
+      document.addEventListener("keydown", pressOn);
+      //Klavye tuşuna basıldığında pressOn isimli fonksiyonu çağırır.
+      document.addEventListener("keyup", pressOff);
+      //Klavye tuşuna basma bittiğinde pressOff isimli fonksiyonu çağırır.
+      function Serit1Hareketi() {
+      //Çizgileri hareket ettirir.
+        let lines = document.querySelectorAll(".Serit1");
+        lines.forEach(function (item) {
+          if (item.y > 1500) {
+            item.y -= 1500;
+          }
+          item.y += oyuncu.speed;
+          item.style.top = item.y + "px";
+        });
+        //Furkan Çapkın 21360859061.
+      }
+      function Serit2Hareketi() {
+        let lis = document.querySelectorAll(".Serit2");
+        lis.forEach(function (item) {
+          if (item.y > 1500) {
+          //ekranın dışına çıkanları geri getirir.
+            item.y -= 1500;
+          }
+          item.y += oyuncu.speed;
+          //Nesnenin hızına oyuncunun hızını ekler.
+          item.style.top = item.y + "px";
+        });
+      }
+      function isCollide(a, b) {
+      //Çarpışmaların kontrolünü sağlar. 
+        aRect = a.getBoundingClientRect();
+        //Sınırları aRect değişkenine atar.
+        bRect = b.getBoundingClientRect();
+        return !(
+        //Her hangi bir çarpışma varsa 
+          aRect.bottom < bRect.top ||
+          aRect.top > bRect.bottom ||
+          aRect.right < bRect.left ||
+          aRect.left > bRect.right
+        );
+      }
+      function carHareket(car) {
+      //Arabaları hareket ettirir ve oyuncu arabası ile çarpışma kontrolü sağlar. Çarpışma olduğunda oyunu bitiren fonksiyonu çağırır.
+        let ele = document.querySelectorAll(".arac1");
+        ele.forEach(function (item) {
+          if (isCollide(car, item)) {
+            endGame();
+          }
+          if (item.y > 1500) {
+            item.y = -600;
+            item.style.left = Math.floor(Math.random() * 350) + "px";
+          }
+          item.y += oyuncu.speed;
+          item.style.top = item.y + "px";
+        });
+      }
+      function playGame() {
+        let car = document.querySelector(".araba");
+        //.araba sınıfına ait ögeyi atar.
+        let road = OyunAlani.getBoundingClientRect();
+        //Oyun alanın sınırlarını atar.
+        Serit1Hareketi();
+        Serit2Hareketi();
+        carHareket(car);
+        if (oyuncu.start) {
+        //Oyunun başladığını kontrol eder.
+          if (keys.ArrowUp && oyuncu.y > road.top - 542) {
+            oyuncu.y -= oyuncu.speed;
+          }
+          if (keys.ArrowDown && oyuncu.y < road.bottom - 237) {
+            oyuncu.y += oyuncu.speed;
+          }
+          if (keys.ArrowLeft && oyuncu.x > 0) {
+            oyuncu.x -= oyuncu.speed;
+          }
+          if (keys.ArrowRight && oyuncu.x < road.width - 54) {
+            oyuncu.x += oyuncu.speed;
+          }
+          car.style.left = oyuncu.x + "px";
+          car.style.top = oyuncu.y + "px";
+          window.requestAnimationFrame(playGame);
+          oyuncu.score++;
+          score.innerText = "Score: " + oyuncu.score;
+        }
+      }
+      function pressOn(e) {
+      //Klavye tuşuna basıldığında çalışır.
+        e.preventDefault();
+        keys[e.key] = true;
+      }
+      function pressOff(e) {
+      //Klavye tuşunu basmayı bıraktığımızda gerçekleşir.
+        e.preventDefault();
+        keys[e.key] = false;
+      }
+      function endGame() {
+      //Oyun bittiğinde çalışır.
+        oyuncu.start = false;
+        score.innerHTML = "Kaza Yaptın<br>Skorun : " + oyuncu.score;
+        BaslamaEkrani.classList.remove("hide");
+      }
+      function start() {
+        BaslamaEkrani.classList.add("hide");
+        BilgiEkrani.classList.add("hide");
+        OyunAlani.classList.remove("hide");
+        OyunAlani.innerHTML = "";
+        oyuncu.start = true; //Oyun başlatıldı.
+        oyuncu.score = 0; //Skor sıfırlandı.
+        for (let x = 0; x < 10; x++) { //Oyuna şeritler ekler.
+          let div = document.createElement("div");
+          div.classList.add("Serit1");
+          div.y = x * 150;
+          div.style.top = x * 150 + "px";
+          OyunAlani.appendChild(div);
+        }
+        for (let x = 0; x < 10; x++) { //Oyuna şeritler ekler.
+          let div = document.createElement("div");
+          div.classList.add("Serit2");
+          div.y = x * 150;
+          div.style.top = x * 150 + "px";
+          OyunAlani.appendChild(div);
+        }
+        window.requestAnimationFrame(playGame); //playGame fonksiyonu çağrılır.
+        let car = document.createElement("div"); //Arabayı oyun alanına ekler.
+        car.setAttribute("class", "araba");
+        OyunAlani.appendChild(car);
+        oyuncu.x = car.offsetLeft;
+        oyuncu.y = car.offsetTop;
+        for (let x = 0; x < 3; x++) { //Oyuna başka arabalar ekler.
+          let enemy = document.createElement("div");
+          enemy.classList.add("arac1");
+          enemy.y = (x + 1) * 600 * -1;
+          enemy.style.top = enemy.y + "px";
+          enemy.style.left = Math.floor(Math.random() * 350) + "px";
+          OyunAlani.appendChild(enemy);
+          //Furkan Çapkın 21360859061.
+        }
+      }
+    </script>
+  </body>
+</html>
+
+
